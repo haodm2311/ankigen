@@ -65,3 +65,11 @@ generate_vocab_cards -f vocab.json -d "English Vocab" -m "Basic"
 
 - Anki must be open when running the tool.
 - `--audio` requires `gtts`, which is included in the package dependencies.
+
+## Most used command
+
+``` bash
+uv run main.py -f ~/Downloads/vocabulary-yt.json -d "English::CBC News" --audio --ipa --request-delay 0.5
+```
+
+`

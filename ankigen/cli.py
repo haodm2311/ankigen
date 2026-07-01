@@ -95,6 +95,8 @@ def run_add(
     allow_duplicates: bool,
     with_audio: bool = False,
     with_ipa: bool = False,
+    max_workers: int = 2,
+    request_delay: float = 0.15,
 ) -> None:
     version = anki_version()
     print(f"Connected — AnkiConnect v{version}")
@@ -123,7 +125,7 @@ def run_add(
     print(f"Cards : {len(vocab)}\n")
 
     ipa_map: dict[str, str] = build_ipa_map(vocab) if with_ipa else {}
-    sound_tags: dict[str, str] = build_sound_tags(vocab) if with_audio else {}
+    sound_tags: dict[str, str] = build_sound_tags(vocab, max_workers=max_workers, request_delay=request_delay) if with_audio else {}
 
     notes = [
         build_note(
@@ -220,6 +222,22 @@ def build_parser() -> argparse.ArgumentParser:
     )
 
     p.add_argument(
+        "--max-workers",
+        type=int,
+        default=2,
+        metavar="N",
+        help="Number of concurrent workers for audio generation (default: 2). Higher values speed up TTS but may trigger rate limits.",
+    )
+
+    p.add_argument(
+        "--request-delay",
+        type=float,
+        default=0.15,
+        metavar="SEC",
+        help="Delay in seconds between TTS requests to avoid rate limiting (default: 0.15). Use 1.0+ for large batches or when encountering 429 errors.",
+    )
+
+    p.add_argument(
         "--tags",
         default="vocabulary",
         help="Comma-separated tags applied to every card (default: vocabulary).",
@@ -282,4 +300,6 @@ def main() -> None:
             allow_duplicates=args.allow_duplicates,
             with_audio=args.audio,
             with_ipa=args.ipa,
+            max_workers=args.max_workers,
+            request_delay=args.request_delay,
         )
