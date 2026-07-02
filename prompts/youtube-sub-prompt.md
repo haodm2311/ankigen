@@ -18,6 +18,11 @@ the result strictly as a valid JSON array saved to a file named
   common meanings (3 total by default).
 - If a word has more than 3 common meanings, you may include more.
 - If it has fewer than 3, include only the available ones.
+- Prefix every Vietnamese meaning with its part-of-speech tag in parentheses,
+  matching the sense of that specific meaning: (v) verb, (n) noun, (adj) adjective,
+  (adv) adverb, (prep) preposition, (conj) conjunction, (phr v) phrasal verb,
+  (idiom) idiom. If different meanings of the same word are different parts of
+  speech, tag each one accordingly.
 - Each example sentence must use the word in the exact sense of that meaning.
 - Examples should be natural and easy to understand.
 
@@ -34,7 +39,7 @@ the result strictly as a valid JSON array saved to a file named
     "ipa": "US IPA transcription in slashes",
     "meanings": [
       {
-        "meaning": "Vietnamese meaning 1",
+        "meaning": "(pos) Vietnamese meaning 1",
         "example": {
           "en": "English example sentence.",
           "vi": "Vietnamese translation of the example."

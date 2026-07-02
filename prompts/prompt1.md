@@ -13,7 +13,7 @@ Each item in the array must be an object with this structure:
     "ipa": "US IPA transcription",
     "meanings": [
       {
-        "meaning": "Vietnamese meaning 1",
+        "meaning": "(pos) Vietnamese meaning 1",
         "example": {
           "en": "English example sentence.",
           "vi": "Vietnamese translation of the example."
@@ -28,6 +28,11 @@ Each item in the array must be an object with this structure:
 
 - Pick the 3 most common meanings for each word. If a word has more than 3 common meanings, feel free to include more than 3.
 - If a word has fewer than 3 common meanings, return only the available common meanings.
+- Prefix every Vietnamese meaning with its part-of-speech tag in parentheses,
+  matching the sense of that specific meaning: (v) verb, (n) noun, (adj) adjective,
+  (adv) adverb, (prep) preposition, (conj) conjunction, (phr v) phrasal verb,
+  (idiom) idiom. If different meanings of the same word are different parts of
+  speech, tag each one accordingly.
 - The examples should be natural and easy to understand.
 - Do not include any explanations outside the JSON array.
 - Make sure the output is valid JSON and save it to a JSON file.
